@@ -1,33 +1,41 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-interface iBook {
-  book_title: string;
-  author_name: string;
-  description: string;
-  author_Image: string;
-  email: string;
-  views: string[];
-  isbn: string;
-  cover_image: string;
+interface iBooks {
+  title?: string;
+  isBoring?: boolean;
+  authorName?: string;
+  details?: string;
+  ISBN?: string;
+  price?: string;
 }
 
-interface bookStore extends iBook, Document {}
+interface book extends iBooks, mongoose.Document{}
 
-const bookSchema = new mongoose.Schema<iBook>({
-  book_title: String,
-  author_name: String,
-  description: String,
-  author_Image: String,
-  email: {
-    type: String,
+const bookSchema = new mongoose.Schema({
+  title : {
+    type : String,
+    required: [true, "Please input ur name"],
     unique: true
   },
-  // email: String,
-  views: [],
-  isbn: String,
-  cover_image: String,
-});
+  isBoring : {
+    type : String
+  },
+  authorName : {
+    type : String
+  },
+  details : {
+    type : String
+  },
+  ISBN : {
+    type : String
+  },
+  price : {
+    type : String
+  },
+}, {
+  timestamps : true
+})
 
-const bookModel = mongoose.model<iBook>("BookStoreColection", bookSchema);
+const bookModel = mongoose.model("BookStore", bookSchema)
 
-export default bookModel;
+export default bookModel

@@ -1,11 +1,14 @@
 import express, { Application, Request, Response } from "express";
-require("./config/Database");
+import dbConfig from "./config/Database"
 import book from "./router/BookStoreRouter"
 
 const port: number = 9856;
 const app: Application = express();
 
 app.use("/book", book)
+
+dbConfig()
+
 app.use(express.json()).get("/", (req: Request, res: Response) => {
   try {
     res.status(200).json({
